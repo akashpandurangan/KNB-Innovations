@@ -1,0 +1,223 @@
+.form {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.form[hidden] {
+  display: none;
+}
+
+.form__intro {
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+}
+
+.form__grid {
+  display: grid;
+  gap: 1.75rem 2rem;
+}
+
+/* ------------------------------------------------------------------ fields */
+
+.field {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.field__label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
+
+.field__optional {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--c-muted);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.75rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--c-ink);
+  border-radius: 0;
+  background: transparent;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.field textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.field ::placeholder {
+  color: #767676; /* 4.5:1 on white and on the off-white section background */
+  opacity: 1;
+}
+
+.field select {
+  appearance: none;
+  padding-right: 2rem;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8' fill='none' stroke='%23171717' stroke-width='1.25'%3E%3Cpath d='m1 1 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.25rem center;
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+  border-bottom-color: var(--c-accent);
+}
+
+/* A thick underline replaces the default outline on fields: clearly visible, and consistent with the form's style. */
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: none;
+  border-bottom-color: var(--c-ink);
+  box-shadow: 0 2px 0 0 var(--c-ink);
+}
+
+.field.has-error input,
+.field.has-error select,
+.field.has-error textarea {
+  border-bottom-color: var(--c-error);
+  box-shadow: 0 1px 0 0 var(--c-error);
+}
+
+/* Keeps a clear focus indicator on an invalid field instead of losing it to the error styling above. */
+.field.has-error input:focus-visible,
+.field.has-error select:focus-visible,
+.field.has-error textarea:focus-visible {
+  box-shadow: 0 2px 0 0 var(--c-error);
+}
+
+.field__error {
+  font-size: var(--fs-small);
+  color: var(--c-error);
+  line-height: 1.5;
+}
+
+.form__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* -------------------------------------------------------------- alerts etc */
+
+.form__alert {
+  padding: 0.9rem 1.1rem;
+  border-left: 2px solid var(--c-error);
+  background: var(--c-bg);
+  font-size: var(--fs-small);
+  color: var(--c-error);
+}
+
+.form__actions {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.form__demo-note {
+  max-width: 28rem;
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+}
+
+/* ----------------------------------------------------------------- success */
+
+.form-success {
+  display: grid;
+  justify-items: start;
+  gap: 1.1rem;
+  padding: clamp(1.75rem, 1.2rem + 2vw, 3rem);
+  border: 1px solid var(--c-line);
+  background: var(--c-bg);
+  animation: form-success-in 0.8s var(--ease-expo) both;
+}
+
+.form-success:focus {
+  outline: none;
+}
+
+.form-success:focus-visible {
+  outline: 2px solid var(--c-ink);
+  outline-offset: 3px;
+}
+
+.form-success__icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--c-accent);
+  border-radius: 50%;
+  color: var(--c-accent-deep);
+}
+
+.form-success h3 {
+  font-size: clamp(2rem, 1.6rem + 1.6vw, 2.75rem);
+  font-weight: 300;
+}
+
+.form-success p {
+  max-width: 30rem;
+  color: var(--c-muted);
+}
+
+.form-success strong {
+  color: var(--c-ink);
+  font-weight: 600;
+}
+
+.form-success__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
+  margin-top: 0.5rem;
+}
+
+@keyframes form-success-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .form__actions {
+    justify-items: stretch;
+  }
+}
+
+@media (min-width: 640px) {
+  .form__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .field--wide {
+    grid-column: 1 / -1;
+  }
+}

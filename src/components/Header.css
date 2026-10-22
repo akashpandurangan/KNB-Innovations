@@ -1,0 +1,253 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.5s var(--ease),
+    border-color 0.5s var(--ease),
+    backdrop-filter 0.5s var(--ease);
+}
+
+.header.is-scrolled,
+.header.is-open {
+  background: rgb(255 255 255 / 0.86);
+  border-bottom-color: var(--c-line);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .header.is-scrolled,
+  .header.is-open {
+    background: rgb(255 255 255 / 0.72);
+    backdrop-filter: blur(18px) saturate(1.4);
+  }
+}
+
+.header__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: min(100% - 2 * var(--gutter), var(--max));
+  height: var(--header-h);
+  margin-inline: auto;
+  transition: height 0.5s var(--ease);
+}
+
+.header.is-scrolled .header__inner {
+  height: calc(var(--header-h) - 0.75rem);
+}
+
+/* ------------------------------------------------------------------- logo */
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  line-height: 1;
+}
+
+.logo__mark {
+  font-family: var(--f-display);
+  font-size: 1.875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.logo__name {
+  padding-left: 0.85rem;
+  border-left: 1px solid var(--c-accent);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+/* -------------------------------------------------------------------- nav */
+
+.nav {
+  display: none;
+  margin-left: auto;
+}
+
+.nav__list {
+  display: flex;
+  gap: clamp(1.5rem, 1rem + 1.6vw, 2.75rem);
+}
+
+.nav__link {
+  position: relative;
+  display: inline-block;
+  padding-block: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--c-ink);
+}
+
+/* Underline draws in from the left; it stays for the section currently in view. */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.15rem;
+  height: 1px;
+  background: var(--c-accent);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.55s var(--ease);
+}
+
+.nav__link:hover::after,
+.nav__link:focus-visible::after,
+.nav__link[aria-current='true']::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.header__cta {
+  display: none;
+}
+
+/* ---------------------------------------------------------- menu toggle */
+
+.menu-toggle {
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-right: -0.5rem;
+  border: 0;
+  background: transparent;
+}
+
+.menu-toggle__bar {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  height: 1px;
+  background: var(--c-ink);
+  transition:
+    transform 0.5s var(--ease),
+    top 0.5s var(--ease);
+}
+
+.menu-toggle__bar:nth-child(1) {
+  top: calc(50% - 4px);
+}
+
+.menu-toggle__bar:nth-child(2) {
+  top: calc(50% + 4px);
+}
+
+.is-open .menu-toggle__bar:nth-child(1) {
+  top: 50%;
+  transform: rotate(45deg);
+}
+
+.is-open .menu-toggle__bar:nth-child(2) {
+  top: 50%;
+  transform: rotate(-45deg);
+}
+
+/* ----------------------------------------------------------------- drawer */
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 99; /* just below the header (100) so the logo and menu toggle stay on top */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: calc(var(--header-h) + 2.5rem) var(--gutter) max(2.5rem, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  background: var(--c-bg);
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition:
+    clip-path 0.7s var(--ease-expo),
+    visibility 0s linear 0.7s;
+}
+
+.drawer.is-open {
+  clip-path: inset(0);
+  visibility: visible;
+  transition:
+    clip-path 0.7s var(--ease-expo),
+    visibility 0s;
+}
+
+.drawer__nav li {
+  border-bottom: 1px solid var(--c-line);
+}
+
+.drawer__nav a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-block: 1.1rem;
+  font-family: var(--f-display);
+  font-size: clamp(2.25rem, 1.6rem + 3vw, 3.25rem);
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.drawer__nav a[aria-current='true']::after {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--c-accent);
+  align-self: center;
+}
+
+.drawer__nav li,
+.drawer__foot {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition:
+    opacity 0.3s var(--ease),
+    transform 0.3s var(--ease);
+}
+
+.drawer.is-open .drawer__nav li,
+.drawer.is-open .drawer__foot {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.7s var(--ease) calc(0.25s + var(--i) * 70ms),
+    transform 0.8s var(--ease-expo) calc(0.25s + var(--i) * 70ms);
+}
+
+.drawer__foot .btn {
+  width: 100%;
+}
+
+@media (min-width: 960px) {
+  .nav,
+  .header__cta {
+    display: inline-flex;
+  }
+
+  .menu-toggle,
+  .drawer {
+    display: none;
+  }
+}
+
+@media (min-width: 960px) {
+  .nav {
+    margin-left: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer__nav li,
+  .drawer__foot {
+    opacity: 1;
+    transform: none;
+  }
+}

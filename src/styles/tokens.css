@@ -1,0 +1,46 @@
+:root {
+  color-scheme: light;
+
+  /* Colour. White dominates; gold is reserved for fine rules, dots and small details. */
+  --c-bg: #ffffff;
+  --c-bg-alt: #f8f7f4;
+  --c-ink: #171717;
+  --c-muted: #686868;
+  --c-line: #e9e6e0;
+  --c-accent: #b69a69;
+  --c-hover: #f1eee8;
+  /* A deeper champagne for the rare small gold text that must meet contrast (#b69a69 on white is ~2.7:1). */
+  --c-accent-deep: #8c7240;
+  --c-error: #a3321f;
+
+  /* Type */
+  --f-display: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
+  --f-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Sized so "Transforming Spaces," holds one line in the hero's text column from 960px up. */
+  --fs-hero: clamp(2.5rem, 0.8rem + 4.1vw, 5.25rem);
+  --fs-h2: clamp(2.5rem, 1.4rem + 3.6vw, 4.5rem);
+  --fs-h3: clamp(1.625rem, 1.3rem + 1vw, 2.125rem);
+  --fs-statement: clamp(2.75rem, 0.8rem + 7vw, 7rem);
+  --fs-lead: clamp(1.0625rem, 0.98rem + 0.3vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-eyebrow: 0.75rem;
+
+  /* Layout */
+  --max: 1440px;
+  --gutter: clamp(1.25rem, 0.4rem + 3.4vw, 4rem);
+  --section-y: clamp(5rem, 2.6rem + 9vw, 10rem);
+  --header-h: 5rem;
+  --radius: 0;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 959px) {
+  :root {
+    --header-h: 4.25rem;
+  }
+}

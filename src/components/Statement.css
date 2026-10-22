@@ -1,0 +1,28 @@
+.statement__inner {
+  display: grid;
+  justify-items: center;
+  gap: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem);
+  text-align: center;
+}
+
+.statement__rule {
+  width: 1px;
+  height: clamp(3rem, 2rem + 3vw, 5rem);
+  background: var(--c-accent);
+}
+
+.statement__title {
+  font-size: var(--fs-statement);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.statement__line {
+  display: block;
+}
+
+.statement__text {
+  max-width: 30rem;
+  font-size: var(--fs-lead);
+  color: var(--c-muted);
+}

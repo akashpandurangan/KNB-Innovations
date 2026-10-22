@@ -1,0 +1,430 @@
+/* ------------------------------------------------------------------ reset */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+html.is-locked {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  /* The hero image bleeds to the viewport edge; clip (not hidden) keeps position behaviour intact. */
+  overflow-x: clip;
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-family: var(--f-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--c-hover);
+  color: var(--c-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-ink);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--c-ink);
+  color: #fff;
+  font-size: var(--fs-small);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------------------- typography */
+
+h1,
+h2,
+h3 {
+  font-family: var(--f-display);
+  font-weight: 300;
+  line-height: 1.04;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: var(--fs-h2);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Italic serif is used for editorial emphasis on whole phrases, never scattered. */
+.italic {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.75;
+  color: var(--c-muted);
+  max-width: 34rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  line-height: 1.4;
+}
+
+.eyebrow::before {
+  content: '';
+  flex: none;
+  width: 2.75rem;
+  height: 1px;
+  background: var(--c-accent);
+}
+
+/* ----------------------------------------------------------------- layout */
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--max));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--section-y);
+  /* Anchor jumps land just under the fixed header, leaving part of the section's own whitespace above the heading. */
+  scroll-margin-top: calc(var(--header-h) - var(--section-y) * 0.5);
+}
+
+.section--alt {
+  background: var(--c-bg-alt);
+}
+
+.section-head {
+  display: grid;
+  gap: 1.5rem 4rem;
+  margin-bottom: clamp(3rem, 2rem + 4vw, 6rem);
+}
+
+.section-head__title {
+  display: grid;
+  gap: 1.75rem;
+  justify-items: start;
+}
+
+@media (min-width: 900px) {
+  .section-head {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    align-items: end;
+  }
+
+  .section-head .lead {
+    justify-self: end;
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* ------------------------------------------------------------------ media */
+
+.media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--ratio, 4 / 3);
+  background: var(--c-hover);
+}
+
+.media > img,
+.media > .img-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media > img {
+  transition: transform 1.3s var(--ease);
+}
+
+.img-fallback {
+  background:
+    linear-gradient(135deg, transparent 49.8%, var(--c-line) 50%, transparent 50.2%),
+    linear-gradient(45deg, transparent 49.8%, var(--c-line) 50%, transparent 50.2%), var(--c-hover);
+}
+
+/* ---------------------------------------------------------------- buttons */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  min-height: 3.25rem;
+  padding: 0 1.75rem;
+  border: 1px solid var(--c-ink);
+  border-radius: var(--radius);
+  background: var(--c-ink);
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.45s var(--ease),
+    color 0.45s var(--ease),
+    border-color 0.45s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.btn__icon {
+  flex: none;
+  transition: transform 0.45s var(--ease);
+}
+
+.btn:hover .btn__icon,
+.btn:focus-visible .btn__icon {
+  transform: translateX(5px);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary:hover {
+  background: var(--c-hover);
+  color: var(--c-ink);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--c-ink);
+}
+
+.btn--secondary:hover,
+.btn--ghost:hover {
+  background: var(--c-hover);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--c-ink);
+  border-color: var(--c-line);
+}
+
+.btn--ghost:hover {
+  border-color: var(--c-ink);
+}
+
+.btn--sm {
+  min-height: 2.75rem;
+  padding: 0 1.25rem;
+  font-size: 0.875rem;
+}
+
+.btn[disabled],
+.btn[aria-disabled='true'] {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+/* Text link with a gold underline that draws in on hover. */
+.link-arrow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0; /* also resets the browser's default <button> chrome when used on a button */
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.link-arrow__label {
+  padding-bottom: 0.3rem;
+  background:
+    linear-gradient(var(--c-accent), var(--c-accent)) left bottom / 0 1px no-repeat,
+    linear-gradient(var(--c-line), var(--c-line)) left bottom / 100% 1px no-repeat;
+  transition: background-size 0.6s var(--ease);
+}
+
+.link-arrow:hover .link-arrow__label,
+.link-arrow:focus-visible .link-arrow__label {
+  background-size:
+    100% 1px,
+    100% 1px;
+}
+
+.link-arrow svg {
+  transition: transform 0.5s var(--ease);
+}
+
+.link-arrow:hover svg,
+.link-arrow:focus-visible svg {
+  transform: translateX(5px);
+}
+
+/* ------------------------------------------------------------------ motion */
+
+.reveal--up {
+  opacity: 0;
+  transform: translate3d(0, 1.5rem, 0);
+  transition:
+    opacity 0.9s var(--ease) var(--reveal-delay, 0ms),
+    transform 1s var(--ease) var(--reveal-delay, 0ms);
+}
+
+.reveal--up[data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+/*
+ * Photography: a curtain lifts from the bottom while the image settles from a slight zoom.
+ * The clip is applied to the child, not the observed wrapper: IntersectionObserver reports a
+ * fully clipped target as not intersecting, so the wrapper has to stay unclipped to be seen.
+ */
+.reveal--image > .media {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1.3s var(--ease-expo) var(--reveal-delay, 0ms);
+}
+
+.reveal--image[data-revealed] > .media {
+  clip-path: inset(0);
+}
+
+.reveal--image img {
+  scale: 1.14;
+  transition:
+    scale 1.8s var(--ease-expo) var(--reveal-delay, 0ms),
+    transform 1.3s var(--ease);
+}
+
+.reveal--image[data-revealed] img {
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .reveal--up {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal--image > .media {
+    clip-path: none;
+  }
+
+  .reveal--image img {
+    scale: 1;
+  }
+}

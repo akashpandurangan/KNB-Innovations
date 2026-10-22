@@ -1,0 +1,111 @@
+/* Sits between two white sections, so it trims its own top padding to avoid a double gap. */
+.process {
+  padding-top: calc(var(--section-y) * 0.4);
+}
+
+.process__head {
+  display: grid;
+  justify-items: start;
+  gap: 1.75rem;
+  margin-bottom: clamp(3rem, 2rem + 4vw, 6rem);
+}
+
+.process__steps {
+  display: grid;
+}
+
+/*
+ * Mobile: a vertical timeline. A thin line runs down the left edge with a gold dot per step.
+ * Desktop (below): the line runs along the top of each column instead.
+ */
+.process__step {
+  position: relative;
+  display: grid;
+  gap: 0.6rem;
+  padding: 0 0 clamp(2.5rem, 2rem + 2vw, 3.5rem) 2.25rem;
+}
+
+.process__step::before {
+  content: '';
+  position: absolute;
+  top: 0.9rem;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: var(--c-line);
+}
+
+.process__step::after {
+  content: '';
+  position: absolute;
+  top: 0.55rem;
+  left: -0.2rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--c-accent);
+}
+
+.process__step:last-child {
+  padding-bottom: 0;
+}
+
+.process__step:last-child::before {
+  display: none;
+}
+
+.process__number {
+  font-family: var(--f-display);
+  font-size: clamp(3.25rem, 2.4rem + 3vw, 4.75rem);
+  font-weight: 300;
+  font-variant-numeric: lining-nums; /* Cormorant defaults to old-style figures, which read as "oI" here */
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.process__title {
+  margin-top: 0.4rem;
+}
+
+.process__text {
+  max-width: 24rem;
+  color: var(--c-muted);
+}
+
+@media (min-width: 800px) {
+  .process__steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: clamp(1.5rem, 1rem + 2vw, 3rem);
+  }
+
+  .process__step,
+  .process__step:last-child {
+    padding: 2.25rem 0 0;
+  }
+
+  .process__step::before,
+  .process__step:last-child::before {
+    display: block;
+    inset: 0 0 auto 0;
+    width: auto;
+    height: 1px;
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 1.4s var(--ease-expo) var(--reveal-delay, 0ms);
+  }
+
+  .process__step[data-revealed]::before {
+    transform: scaleX(1);
+  }
+
+  .process__step::after {
+    top: -0.2rem;
+    left: 0;
+  }
+}
+
+@media (min-width: 800px) and (prefers-reduced-motion: reduce) {
+  .process__step::before {
+    transform: none;
+  }
+}

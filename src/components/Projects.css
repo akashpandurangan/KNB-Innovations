@@ -1,0 +1,177 @@
+/* Follows the staggered services grid, so it needs less of its own top padding. */
+.projects {
+  padding-top: calc(var(--section-y) * 0.5);
+  scroll-margin-top: calc(var(--header-h) - var(--section-y) * 0.25);
+}
+
+.projects__grid {
+  --offset: clamp(3rem, 1rem + 6vw, 6rem);
+  display: grid;
+  gap: clamp(3.5rem, 2rem + 5vw, 6.5rem) clamp(1.25rem, 0.5rem + 2.4vw, 2.5rem);
+  align-items: start;
+}
+
+.project {
+  position: relative;
+  min-width: 0;
+}
+
+/* Mobile: one column, alternating landscape and portrait frames. */
+.project:nth-child(3n + 1),
+.project:nth-child(6n) {
+  --ratio: 5 / 4;
+}
+
+.project:nth-child(6n + 2),
+.project:nth-child(6n + 3),
+.project:nth-child(6n + 5) {
+  --ratio: 4 / 5;
+}
+
+/* ---------------------------------------------------------------- caption */
+
+.project__caption {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.project__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem 1.5rem;
+}
+
+.project__name {
+  font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2rem);
+}
+
+.project__open {
+  /* The ::after below stretches over the whole article so the photo is clickable too. */
+  position: static;
+}
+
+.project__open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.project__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+  line-height: 1.5;
+}
+
+.project__meta dd {
+  margin: 0;
+}
+
+.project__category {
+  color: var(--c-ink);
+  font-weight: 500;
+}
+
+.project:hover .media img {
+  transform: scale(1.045);
+}
+
+.project:hover .link-arrow__label {
+  background-size:
+    100% 1px,
+    100% 1px;
+}
+
+.project:hover .link-arrow svg {
+  transform: translate(3px, -3px);
+}
+
+.project__open:hover svg,
+.project__open:focus-visible svg {
+  transform: translate(3px, -3px);
+}
+
+/* ----------------------------------------------------------------- footer */
+
+.projects__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  margin-top: clamp(3.5rem, 2rem + 5vw, 6rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--c-line);
+}
+
+.projects__note {
+  max-width: 30rem;
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+}
+
+/* ---------------------------------------------------------------- tablet */
+
+@media (min-width: 700px) and (max-width: 1099px) {
+  .projects__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project:nth-child(n) {
+    --ratio: 4 / 5;
+  }
+
+  /* Same interlock as the services grid: the right column sits one offset lower. */
+  .project:nth-child(2) {
+    margin-top: var(--offset);
+  }
+
+  .project:nth-child(odd):not(:first-child) {
+    margin-top: calc(var(--offset) * -1);
+  }
+}
+
+/* ---------------------------------------------------------------- desktop */
+
+@media (min-width: 1100px) {
+  .projects__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    /* Bottoms (captions) line up along each row while photo heights differ, which staggers the tops. */
+    align-items: end;
+  }
+
+  .project:nth-child(6n + 1) {
+    grid-column: 1 / span 7;
+    --ratio: 4 / 3;
+  }
+
+  .project:nth-child(6n + 2) {
+    grid-column: 8 / span 5;
+    --ratio: 4 / 5;
+  }
+
+  .project:nth-child(6n + 3) {
+    grid-column: 1 / span 4;
+    --ratio: 3 / 4;
+  }
+
+  .project:nth-child(6n + 4) {
+    grid-column: 5 / span 8;
+    --ratio: 16 / 9;
+  }
+
+  .project:nth-child(6n + 5) {
+    grid-column: 1 / span 5;
+    --ratio: 4 / 5;
+  }
+
+  .project:nth-child(6n) {
+    grid-column: 6 / span 7;
+    --ratio: 4 / 3;
+  }
+}

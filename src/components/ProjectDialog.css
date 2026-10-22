@@ -1,0 +1,164 @@
+.project-dialog {
+  width: min(100% - 1.5rem, 1180px);
+  max-width: none;
+  max-height: calc(100dvh - 1.5rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  background: var(--c-bg);
+  color: var(--c-ink);
+}
+
+.project-dialog::backdrop {
+  background: rgb(23 23 23 / 0.4);
+  backdrop-filter: blur(5px);
+}
+
+.project-dialog[open] {
+  animation: dialog-in 0.6s var(--ease-expo);
+}
+
+.project-dialog[open]::backdrop {
+  animation: dialog-fade 0.5s var(--ease);
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.5rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dialog-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.project-dialog__panel {
+  display: grid;
+}
+
+.project-dialog__media {
+  --ratio: 4 / 3;
+}
+
+.project-dialog__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: clamp(1.5rem, 1rem + 2vw, 3rem);
+}
+
+.project-dialog__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.project-dialog__title {
+  font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.5rem);
+}
+
+.project-dialog__blurb {
+  color: var(--c-muted);
+  max-width: 30rem;
+}
+
+.project-dialog__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, auto));
+  justify-content: start;
+  gap: 1rem 2.5rem;
+  padding-block: 1.25rem;
+  border-block: 1px solid var(--c-line);
+}
+
+.project-dialog__facts dt {
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.project-dialog__facts dd {
+  margin: 0.25rem 0 0;
+  font-weight: 500;
+}
+
+.project-dialog__note {
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+}
+
+.project-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.project-dialog__pager {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.project-dialog__count {
+  min-width: 4.5rem;
+  text-align: center;
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  background: transparent;
+  transition:
+    background-color 0.4s var(--ease),
+    border-color 0.4s var(--ease);
+}
+
+.icon-button:hover {
+  background: var(--c-hover);
+  border-color: var(--c-ink);
+}
+
+@media (min-width: 800px) {
+  .project-dialog {
+    overflow: hidden;
+  }
+
+  .project-dialog__panel {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    height: min(44rem, calc(100dvh - 1.5rem));
+  }
+
+  .project-dialog__media {
+    --ratio: auto;
+    min-height: 0;
+  }
+
+  .project-dialog__info {
+    overflow-y: auto;
+  }
+}
