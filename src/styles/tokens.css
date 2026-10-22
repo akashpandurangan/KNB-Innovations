@@ -12,6 +12,8 @@
   /* A deeper champagne for the rare small gold text that must meet contrast (#b69a69 on white is ~2.7:1). */
   --c-accent-deep: #8c7240;
   --c-error: #a3321f;
+  /* The gold used in the KNB logo mark, measured from the supplied artwork. */
+  --c-logo-gold: #ac894f;
 
   /* Type */
   --f-display: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;

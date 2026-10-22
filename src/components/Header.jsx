@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { brand, navLinks } from '../data/content'
+import { navLinks } from '../data/content'
 import useScrolled from '../hooks/useScrolled'
 import Button from './Button'
+import Logo from './Logo'
 import './Header.css'
 
 const DESKTOP = '(min-width: 960px)'
@@ -59,15 +60,7 @@ export default function Header({ activeId }) {
     <>
       <header className={`header${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}>
         <div className="header__inner">
-          <a
-            className="logo"
-            href="#home"
-            aria-label={`${brand.name}, back to top`}
-            onClick={() => open && closeMenu()}
-          >
-            <span className="logo__mark">{brand.wordmark.primary}</span>
-            <span className="logo__name">{brand.wordmark.secondary}</span>
-          </a>
+          <Logo onClick={() => open && closeMenu()} />
 
           <nav className="nav" aria-label="Primary">
             <ul className="nav__list">

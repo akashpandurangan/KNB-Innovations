@@ -1,8 +1,8 @@
-# AK Interiors: studio website
+# KNB Innovations: studio website
 
-A single-page marketing site for a premium interior design studio. Built with React 19 and Vite, plain CSS with design tokens, and no animation library (all motion is CSS plus one shared `IntersectionObserver`).
+A single-page marketing site for KNB Innovations, a premium interior design studio. Built with React 19 and Vite, plain CSS with design tokens, and no animation library (all motion is CSS plus one shared `IntersectionObserver`).
 
-"AK Interiors" is an **editable placeholder** brand. Replace it in `src/data/content.js`.
+The brand name and wordmark live in `brand` in `src/data/content.js`. The logo mark (gold bar and chevron) is redrawn as vector in `src/components/Logo.jsx` from the supplied artwork, and is also used for `public/favicon.svg`.
 
 ## Run it
 
@@ -20,10 +20,11 @@ Requires Node 20.19+ (developed on Node 24).
 
 ```
 index.html                  title, meta description, Open Graph tags, Google Fonts
+public/favicon.svg          the KNB mark on white
 src/data/content.js         ALL copy, image ids, contact details, form options. Edit here first.
 src/styles/tokens.css       colours, type scale, spacing, motion easing
 src/styles/base.css         reset, typography, buttons, reveal animations, reduced-motion rules
-src/components/             Header, Hero, Services, Projects (+ProjectDialog), Philosophy,
+src/components/             Logo, Header, Hero, Services, Projects (+ProjectDialog), Philosophy,
                             Process, Statement, Testimonials, Contact (+ContactForm), Footer
                             each with its own .css file beside it
 src/lib/                    images.js (URL/srcset), validate.js, submitEnquiry.js
@@ -40,6 +41,7 @@ src/hooks/                  useScrolled, useActiveSection
 | `--c-muted` | `#686868` | secondary text |
 | `--c-line` | `#E9E6E0` | hairline borders |
 | `--c-accent` | `#B69A69` | fine rules, dots, small details only |
+| `--c-logo-gold` | `#AC894F` | the gold bar in the logo mark (measured from the supplied artwork) |
 | `--c-hover` | `#F1EEE8` | hover backgrounds |
 
 Headings use Cormorant Garamond (light), body and UI use Manrope. Gold on white is only about 2.7:1, so it is never used for text; `--c-accent-deep` exists for any small gold text that needs contrast.
@@ -72,7 +74,7 @@ Notes:
 
 Everything marked `PLACEHOLDER` or `SAMPLE CONTENT` in `src/data/content.js` must be replaced before launch:
 
-- **Brand**: name and wordmark (`brand`). The favicon (`public/favicon.svg`) is an "AK" monogram.
+- **Brand**: if the name or logo ever changes, update `brand` in `content.js`, the mark in `Logo.jsx`, and `public/favicon.svg`. Page title and description are in `index.html`.
 - **Contact**: email, phone, address, WhatsApp number (digits with country code, no `+`), and social URLs. The values shipped are inert examples (`example.com`, `+00…`).
 - **Projects**: the six projects, their locations and years are demo content, not real clients or completed work. The page and the viewer both carry a "sample" note; remove those (`sampleNote` and the line in `ProjectDialog.jsx`) when real work goes in.
 - **Testimonials**: the quotes are sample text with "Client name" attributions. Replace them with genuine, permissioned feedback and remove `sampleNote`.

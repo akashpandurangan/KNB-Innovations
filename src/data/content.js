@@ -10,9 +10,9 @@
 /* ---------------------------------------------------------------- brand */
 
 export const brand = {
-  /* The reference artwork was not available, so the name is an editable placeholder. */
-  name: 'AK Interiors',
-  wordmark: { primary: 'AK', secondary: 'Interiors' },
+  name: 'KNB Innovations',
+  // The logo mark itself (gold bar and chevron) is drawn in components/Logo.jsx.
+  wordmark: { primary: 'KNB', secondary: 'Innovations' },
   description:
     'An interior design studio creating considered, timeless spaces for homes and workplaces, from the first sketch to the final finish.',
 }

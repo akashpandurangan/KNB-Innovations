@@ -1,5 +1,6 @@
 import { brand, contact, navLinks } from '../data/content'
 import { ArrowUp, ArrowUpRight } from './Icons'
+import Logo from './Logo'
 import './Footer.css'
 
 export default function Footer() {
@@ -10,10 +11,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer__top">
           <div className="footer__brand">
-            <a className="logo" href="#home" aria-label={`${brand.name}, back to top`}>
-              <span className="logo__mark">{brand.wordmark.primary}</span>
-              <span className="logo__name">{brand.wordmark.secondary}</span>
-            </a>
+            <Logo />
             <p className="footer__about">{brand.description}</p>
           </div>
 
